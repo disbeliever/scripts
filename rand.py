@@ -21,12 +21,22 @@ def random_number(val_min, val_max):
 
 
 def main():
+    """Usage: {0} action [args]
+    where action can be:
+    n - random integer
+    f - random file from current dir
+    F - random file from current dir with full path
+    """
+    if (len(sys.argv) == 1):
+        print >> sys.stderr, main.__doc__.format(os.path.basename(sys.argv[0]))
+        return 1
+
     if (sys.argv[1] == "n"):
         try:
             val_min = int(sys.argv[2])
         except:
-            print "Use: rand.py [min] [max]"
-            sys.exit(1)
+            print >> sys.stderr, "Usage: rand.py {max | min max}"
+            return 1
         try:
             val_max = int(sys.argv[3])
         except:
