@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 
 import random
 import sys
@@ -28,26 +28,26 @@ def main():
     F - random file from current dir with full path
     """
     if (len(sys.argv) == 1):
-        print >> sys.stderr, main.__doc__.format(os.path.basename(sys.argv[0]))
+        print (main.__doc__.format(os.path.basename(sys.argv[0])), file=sys.stderr)
         return 1
 
     if (sys.argv[1] == "n"):
         try:
             val_min = int(sys.argv[2])
         except:
-            print >> sys.stderr, "Usage: rand.py {max | min max}"
+            print ("Usage: rand.py {max | min max}", file=sys.stderr)
             return 1
         try:
             val_max = int(sys.argv[3])
         except:
             val_max = 0
-        print random_number(val_min, val_max)
+        print(random_number(val_min, val_max))
     elif (sys.argv[1] == "f"):
-        print random_file(False)
+        print(random_file(False))
     elif (sys.argv[1] == "F"):
-        print random_file(True)
+        print(random_file(True))
     else:
-        print "Unknown command"
+        print("Unknown command")
 
 
 if __name__ == "__main__":
