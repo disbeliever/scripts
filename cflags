@@ -1,0 +1,21 @@
+#!/bin/sh
+
+if [ "x$1" != "x" ]; then
+	package=$1
+else
+	echo "usage: `basename $0` package"
+	exit 1
+fi
+
+db_dir="/var/db/pkg"
+
+list=`find $db_dir/ -type d -name *$package*`
+
+for i in $list; do
+    if [ -e $i/CFLAGS ]; then
+        GAWK='BEGIN { n=split("'$i'", a, "/", seps); print a[n-1] "/" a[n]; }'
+        a=`gawk "$GAWK"`
+        /bin/echo -e '\e[0;31m'$a":\e[0m"
+	cat "$i/CFLAGS"
+    fi
+done
