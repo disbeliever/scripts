@@ -6,11 +6,15 @@ import os
 
 
 def random_file(full_path):
-    if (full_path):
-        return os.path.join(os.getcwd(),
-                            random.choice(os.listdir(os.getcwd())))
+    files = os.listdir(os.getcwd())
+    if (len(files) > 0):
+        if (full_path):
+            return os.path.join(os.getcwd(),
+                                random.choice(files))
+        else:
+            return random.choice(os.listdir(files))
     else:
-        return random.choice(os.listdir(os.getcwd()))
+        return ""
 
 
 def random_number(val_min, val_max):
