@@ -12,7 +12,7 @@ def random_file(full_path):
             return os.path.join(os.getcwd(),
                                 random.choice(files))
         else:
-            return random.choice(os.listdir(files))
+            return random.choice(files)
     else:
         return ""
 
