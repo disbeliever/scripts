@@ -10,8 +10,12 @@ class ExtM3UPlaylist():
     def __init__(self, filename):
         self.entries = []
         self.filename = filename
-        with open(os.path.expanduser(filename)) as f:
-            lines = map(lambda x: x.rstrip(), f.readlines())
+        try:
+            with open(os.path.expanduser(filename)) as f:
+                lines = map(lambda x: x.rstrip(), f.readlines())
+        except IOError as e:
+            print "{0}: {1}".format(e.args[1], os.path.expanduser(filename))
+            return None
         if (lines[0].rstrip() != "#EXTM3U"):
             print "Doesn't looks like moc playlist"
             return None
@@ -19,7 +23,7 @@ class ExtM3UPlaylist():
         for l in lines[1:]:
             filename = ""
             extinf = ""
-            #if l.startswith("#EXTINF"):
+            # if l.startswith("#EXTINF"):
             #    extinf = l
             if not l.startswith("#"):
                 filename = l
@@ -61,6 +65,9 @@ class ExtM3UEntry():
 
 def main():
     playlist = ExtM3UPlaylist("~/.moc/playlist.m3u")
+    if (len(playlist.entries) == 0):
+        return 1
+
     removed_count = playlist.purge_non_existant()
     playlist.write()
     print playlist
