@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 import os
 import sys
@@ -12,12 +12,12 @@ class ExtM3UPlaylist():
         self.filename = filename
         try:
             with open(os.path.expanduser(filename)) as f:
-                lines = map(lambda x: x.rstrip(), f.readlines())
+                lines = list(map(lambda x: x.rstrip(), f.readlines()))
         except IOError as e:
-            print "{0}: {1}".format(e.args[1], os.path.expanduser(filename))
+            print("{0}: {1}".format(e.args[1], os.path.expanduser(filename)))
             return None
         if (lines[0].rstrip() != "#EXTM3U"):
-            print "Doesn't looks like moc playlist"
+            print("Doesn't look like moc playlist")
             return None
 
         for l in lines[1:]:
@@ -42,9 +42,9 @@ class ExtM3UPlaylist():
         except OSError:
             return False
 
-    def purge_non_existant(self):
+    def purge_non_existent(self):
         len_before = len(self.entries)
-        self.entries = filter(self.is_file_exist, self.entries)
+        self.entries = list(filter(self.is_file_exist, self.entries))
         len_after = len(self.entries)
         return len_before - len_after
 
@@ -68,10 +68,10 @@ def main():
     if (len(playlist.entries) == 0):
         return 1
 
-    removed_count = playlist.purge_non_existant()
+    removed_count = playlist.purge_non_existent()
     playlist.write()
-    print playlist
-    print "Removed {0} items".format(removed_count)
+    print(playlist)
+    print("Removed {0} items".format(removed_count))
 
 
 if __name__ == "__main__":
