@@ -18,7 +18,7 @@ _6500() {
 }
 
 hour=`date +%H`
-if [ $hour -ge 19 ] && [ $hour -le 2 ]; then
+if [ $hour -ge 19 ] || [ $hour -le 2 ]; then
     _5400
 else
     _6500
