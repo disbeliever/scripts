@@ -20,3 +20,10 @@ sudo chmod 644 /usr/src/linux/include/generated/uapi/linux/*.h
 sudo chmod 755 /usr/src/linux/scripts/basic/fixdep
 sudo chmod 755 /usr/src/linux/scripts/mod/modpost
 sudo chmod o+r /usr/src/linux/vmlinux
+
+
+# added 2018-05-13
+sudo chmod o+rx "/lib/modules/$(uname -r)"
+sudo chmod o+rx /usr/src/linux/tools/objtool/objtool
+sudo chmod o+rx /usr/src/linux/scripts/recordmcount
+sudo chmod o+rx /usr/src/linux/scripts/genksyms/genksyms
